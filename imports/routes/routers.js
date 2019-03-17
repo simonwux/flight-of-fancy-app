@@ -15,19 +15,12 @@ window.browserHistory = browserHistory;
 const authPages = ["/app"];
 const unAuthpages = ["/", "signup"];
 
-const onEnterPublicPage = () => {
-	if (Meteor.userId()) {
-		browserHistory.push("/app");
-	}
-};
-
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
 		<Switch>
 			<Route
 				exact
 				path="/"
-				// component={Login}
 				render={() =>
 					Meteor.userId() ? <Redirect to="/app" /> : <Login />
 				}
@@ -35,13 +28,13 @@ export const renderRoutes = () => (
 			<Route
 				exact
 				path="/signup"
-				component={Signup}
-				onEnter={onEnterPublicPage}
+				render={() =>
+					Meteor.userId() ? <Redirect to="/app" /> : <Signup />
+				} 
 			/>
 			<Route
 				exact
 				path="/app"
-				// component={App}
 				render={() =>
 					!Meteor.userId() ? <Redirect to="/" /> : <App />
 				}
@@ -62,10 +55,10 @@ Tracker.autorun(() => {
 
 	// if user on an unauthenticated page and logged in, redirect to /app
 	if (isUnAuthPage && isLoggedin) {
-		browserHistory.push("/app");
+		browserHistory.replace("/app");
 	}
 	// if user on an authenticated page but not logged in, redirect to /
 	if (isAuthPage && !isLoggedin) {
-		browserHistory.push("/");
+		browserHistory.replace("/");
 	}
 });
