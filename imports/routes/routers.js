@@ -8,6 +8,7 @@ import App from "../ui/App.jsx";
 import NotFound from "../ui/NotFound.jsx";
 
 const browserHistory = createBrowserHistory();
+window.browserHistory = browserHistory;
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
