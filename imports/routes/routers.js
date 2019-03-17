@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
-import { Router, Route, Switch } from "react-router";
+import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import { Tracker } from "meteor/tracker";
 
@@ -15,18 +15,41 @@ window.browserHistory = browserHistory;
 const authPages = ["/app"];
 const unAuthpages = ["/", "signup"];
 
+const onEnterPublicPage = () => {
+	if (Meteor.userId()) {
+		browserHistory.push("/app");
+	}
+};
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
 		<Switch>
-			<Route exact path="/" component={Login}/>
-			<Route exact path="/signup" component={Signup}/>
-			<Route exact path="/app" component={App} />
+			<Route
+				exact
+				path="/"
+				// component={Login}
+				render={() =>
+					Meteor.userId() ? <Redirect to="/app" /> : <Login />
+				}
+			/>
+			<Route
+				exact
+				path="/signup"
+				component={Signup}
+				onEnter={onEnterPublicPage}
+			/>
+			<Route
+				exact
+				path="/app"
+				// component={App}
+				render={() =>
+					!Meteor.userId() ? <Redirect to="/" /> : <App />
+				}
+			/>
 			<Route component={NotFound} />
 		</Switch>
 	</Router>
 );
-
 
 // Tracking auth status
 Tracker.autorun(() => {
@@ -46,4 +69,3 @@ Tracker.autorun(() => {
 		browserHistory.push("/");
 	}
 });
- 
