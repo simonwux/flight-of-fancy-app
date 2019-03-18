@@ -25,6 +25,7 @@ class TopicPost extends Component {
 			Meteor.call(
 				"Topics.insert", // method name
 				this.state.topic, // parameter
+				
 				// arrow function
 				(err, res) => {
 					if (err) {
