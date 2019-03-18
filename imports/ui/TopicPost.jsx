@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Table from "./Table.jsx";
-import { Button } from "reactstrap";
+
 import { withTracker } from "meteor/react-meteor-data";
 import { Messages } from "../api/messages.js";
+
+import ModalComponent from "./ModalComponent.jsx";
 
 class TopicPost extends Component {
 	constructor(props) {
@@ -31,7 +32,9 @@ class TopicPost extends Component {
 						console.log(err);
 						return;
 					}
+
 					console.log("Message inserted", res);
+
 					this.setState({
 						message: ""
 					});
@@ -40,25 +43,21 @@ class TopicPost extends Component {
 		}
 	}
 
-	onClick() {
-		
-	}
-
 	renderPostedTopics() {
 		return this.props.messages4Fancy.map(m => (
-			<div key={m._id}>
-				{m.message}
-				<Button 
-					variant="light"
-					// onClick={this.onClick.bind(this)}
-				>Follow It
-				</Button>
+			<div key={m._id} className="row">
+				<div className="col-sm">
+					{m.message}
+				
+					<ModalComponent />
+				</div>
 			</div>
 		));
 	}
 
 	render() {
 		console.log(this.props.messages4Fancy);
+
 		return (
 			<div>
 				<h2>Post Your Topic</h2>
@@ -72,16 +71,8 @@ class TopicPost extends Component {
 						onKeyPress={this.onKey.bind(this)}
 					/>
 				</label>
-				{/* 
-					for each topic, it should be a block for users
-					who are interested to follow
-				*/}
-				<div className="topic">
-					{this.renderPostedTopics()}
-				</div>
 
-				<Table />
-				
+				<div className="topic">{this.renderPostedTopics()}</div>
 			</div>
 		);
 	}
