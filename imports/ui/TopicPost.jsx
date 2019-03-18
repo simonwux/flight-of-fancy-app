@@ -83,7 +83,20 @@ TopicPost.propTypes = {
 // messages4Fancy collection
 // it returns a list of all the posting topics
 export default withTracker(() => {
+	const handle = Meteor.subscribe("topics");
 	return {
-		Topics: Topics.find({}).fetch()
+		Topics: Topics.find({}).fetch(),
+		author: Meteor.user(),
+		ready: handle.ready()
 	};
 })(TopicPost);
+
+
+
+
+
+
+
+
+
+
