@@ -10,13 +10,6 @@ if (Meteor.isServer) {
 		return Answers.find(
 			{
 				// author: Meteor.user().username
-			},
-			{
-				limit: 10
-				// sort by likes
-				// sort: {
-				// 	createdAt: -1
-				// }
 			}
 		);
 	});

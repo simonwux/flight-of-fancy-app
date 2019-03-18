@@ -35,7 +35,7 @@ class ModalComponent extends React.Component {
 				console.log("Answer submitted", res);
 
 				this.setState({
-					topic: ""
+					answer: ""
 				});
 			}
 		);
@@ -101,7 +101,11 @@ ModalComponent.propTypes = {
 export default withTracker(() => {
 	const handle1 = Meteor.subscribe("answers");
 	return {
-		Answers: Answers.find({}).fetch(),
+		Answers: Answers.find({}, {
+			sort: {
+				likes: -1
+			}
+		}).fetch(),
 		author: Meteor.user(),
 		ready: handle1.ready()
 	};

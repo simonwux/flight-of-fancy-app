@@ -12,10 +12,7 @@ if (Meteor.isServer) {
 				// author: Meteor.user().username
 			},
 			{
-				limit: 10,
-				sort: {
-					createdAt: -1
-				}
+				limit: 10
 			}
 		);
 	});

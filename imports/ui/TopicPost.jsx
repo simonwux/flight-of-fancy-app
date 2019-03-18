@@ -85,18 +85,15 @@ TopicPost.propTypes = {
 export default withTracker(() => {
 	const handle = Meteor.subscribe("topics");
 	return {
-		Topics: Topics.find({}).fetch(),
+		Topics: Topics.find(
+			{},
+			{
+				sort: {
+					createdAt: -1
+				}
+			}
+		).fetch(),
 		author: Meteor.user(),
 		ready: handle.ready()
 	};
 })(TopicPost);
-
-
-
-
-
-
-
-
-
-
