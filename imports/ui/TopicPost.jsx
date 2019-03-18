@@ -10,7 +10,8 @@ class TopicPost extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			topic: ""
+			topic: "",
+			error: ""
 		};
 	}
 
@@ -25,11 +26,14 @@ class TopicPost extends Component {
 			Meteor.call(
 				"Topics.insert", // method name
 				this.state.topic, // parameter
-				
+
 				// arrow function
 				(err, res) => {
 					if (err) {
-						alert("There was error inserting. Check the console.");
+						this.setState({
+							error:err.reason
+						});
+						// alert("There was error inserting. Check the console.");
 						console.log(err);
 						return;
 					}
@@ -37,7 +41,8 @@ class TopicPost extends Component {
 					console.log("Topic inserted", res);
 
 					this.setState({
-						topic: ""
+						topic: "",
+						error: ""
 					});
 				}
 			);
@@ -47,7 +52,7 @@ class TopicPost extends Component {
 	renderPostedTopics() {
 		return this.props.Topics.map(t => (
 			<div key={t._id} className="card">
-				Author {t.author} : {t.topic}
+				Author {t.author} : {t.topic} 
 				<ModalComponent postID={t._id} />
 			</div>
 		));
@@ -59,6 +64,9 @@ class TopicPost extends Component {
 		return (
 			<div>
 				<h2>Post Your Topic</h2>
+
+				{this.state.error ? <p>{this.state.error}</p> : undefined}
+
 				<label htmlFor="topic">
 					Topic: {}
 					<input

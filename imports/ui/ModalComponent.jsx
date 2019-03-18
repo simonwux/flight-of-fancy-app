@@ -10,7 +10,8 @@ class ModalComponent extends React.Component {
 		super(props);
 		this.state = {
 			isOpen: false,
-			answer: ""
+			answer: "",
+			error: ""
 		};
 	}
 
@@ -28,31 +29,37 @@ class ModalComponent extends React.Component {
 			// arrow function
 			(err, res) => {
 				if (err) {
-					alert("There was error inserting. Check the console.");
+					this.setState({
+						isOpen: true,
+						error: err.reason
+					});
 					console.log(err);
+				} else {
+					console.log("Answer submitted", res);
+
+					this.setState({
+						answer: "",
+						error: "",
+						isOpen: false
+					});
 				}
-
-				console.log("Answer submitted", res);
-
-				this.setState({
-					answer: ""
-				});
 			}
 		);
-
-		this.setState({ 
-			isOpen: false 
-		});
 	}
 
 	renderSubmittedAnswer() {
-		let matchedAnswer = this.props.Answers.filter(a => a.parentId === this.props.postID);
+		let matchedAnswer = this.props.Answers.filter(
+			a => a.parentId === this.props.postID
+		);
 
-		return  matchedAnswer.map(a => (
+		return matchedAnswer.map(a => (
 			<div key={a._id}>
 				Author {a.author} : {a.content}
-
-				<button onClick={() => Meteor.call("Answers.updateLikes", a._id)}>{a.likes}</button>
+				<button
+					onClick={() => Meteor.call("Answers.updateLikes", a._id)}
+				>
+					{a.likes}
+				</button>
 			</div>
 		));
 	}
@@ -72,6 +79,8 @@ class ModalComponent extends React.Component {
 				>
 					<p>Try to finish the story</p>
 
+					{this.state.error ? <p>{this.state.error}</p> : undefined}
+
 					<form>
 						<input
 							type="text"
@@ -81,9 +90,7 @@ class ModalComponent extends React.Component {
 						/>
 					</form>
 
-					<button onClick={this.onClick.bind(this)}>
-						Submit
-					</button>
+					<button onClick={this.onClick.bind(this)}>Submit</button>
 				</Modal>
 
 				<div className="answer">{this.renderSubmittedAnswer()}</div>
@@ -101,20 +108,15 @@ ModalComponent.propTypes = {
 export default withTracker(() => {
 	const handle1 = Meteor.subscribe("answers");
 	return {
-		Answers: Answers.find({}, {
-			sort: {
-				likes: -1
+		Answers: Answers.find(
+			{},
+			{
+				sort: {
+					likes: -1
+				}
 			}
-		}).fetch(),
+		).fetch(),
 		author: Meteor.user(),
 		ready: handle1.ready()
 	};
 })(ModalComponent);
-
-
-
-
-
-
-
-

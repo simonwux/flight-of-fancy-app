@@ -1,6 +1,7 @@
 import { Mongo } from "meteor/mongo";
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
+import SimpleSchema from "simpl-schema";
 
 export const Answers = new Mongo.Collection("AnswersToPost");
 
@@ -22,6 +23,16 @@ Meteor.methods({
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
+
+		new SimpleSchema({
+			ans: {
+				type: String,
+				min: 10,
+				max: 280
+			}
+		}).validate({
+			ans: ans
+		});
 
 		Answers.insert({
 			content: ans,
