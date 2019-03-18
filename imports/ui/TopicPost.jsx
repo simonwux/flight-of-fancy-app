@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import { Topics } from "../api/messages.js";
+import { Topics } from "../api/topics.js";
 
 import ModalComponent from "./ModalComponent.jsx";
 
