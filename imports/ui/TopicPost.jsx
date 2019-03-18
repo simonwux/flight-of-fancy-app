@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import { Messages } from "../api/messages.js";
+import { Topics } from "../api/messages.js";
 
 import ModalComponent from "./ModalComponent.jsx";
 
@@ -10,22 +10,22 @@ class TopicPost extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			message: ""
+			topic: ""
 		};
 	}
 
 	onChange(event) {
 		this.setState({
-			message: event.target.value
+			topic: event.target.value
 		});
 	}
 
 	onKey(event) {
 		if (event.key === "Enter") {
-			Messages.insert(
-				{
-					message: this.state.message
-				},
+			Meteor.call(
+				"Topics.insert", // method name
+				this.state.topic, // parameter
+				// arrow function
 				(err, res) => {
 					if (err) {
 						alert("There was error inserting. Check the console.");
@@ -33,10 +33,10 @@ class TopicPost extends Component {
 						return;
 					}
 
-					console.log("Message inserted", res);
+					console.log("Topic inserted", res);
 
 					this.setState({
-						message: ""
+						topic: ""
 					});
 				}
 			);
@@ -44,19 +44,16 @@ class TopicPost extends Component {
 	}
 
 	renderPostedTopics() {
-		return this.props.messages4Fancy.map(m => (
-			<div key={m._id} className="row">
-				<div className="col-sm">
-					{m.message}
-				
-					<ModalComponent />
-				</div>
+		return this.props.Topics.map(t => (
+			<div key={t._id}>
+				{t.topic}
+				<ModalComponent />
 			</div>
 		));
 	}
 
 	render() {
-		console.log(this.props.messages4Fancy);
+		console.log(this.props.Topics);
 
 		return (
 			<div>
@@ -79,7 +76,7 @@ class TopicPost extends Component {
 }
 
 TopicPost.propTypes = {
-	messages4Fancy: PropTypes.arrayOf(PropTypes.object).isRequired
+	Topics: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 // query and fetch all data from
@@ -87,6 +84,6 @@ TopicPost.propTypes = {
 // it returns a list of all the posting topics
 export default withTracker(() => {
 	return {
-		messages4Fancy: Messages.find({}).fetch()
+		Topics: Topics.find({}).fetch()
 	};
 })(TopicPost);
