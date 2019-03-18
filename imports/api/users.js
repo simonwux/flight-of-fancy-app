@@ -1,4 +1,3 @@
-import { Meteor } from "meteor/meteor";
 import SimpleSchema from "simpl-schema";
 import { Accounts } from "meteor/accounts-base";
 
@@ -19,15 +18,10 @@ Accounts.validateNewUser(user => {
 		}
 	});
 
-	try {
-		userSchema.validate({
-			username: username,
-			email: email
-		});
-	} catch (e) {
-		// console.log(e);
-		throw new Meteor.Error(403, e.message);
-	}
+	userSchema.validate({
+		username: username,
+		email: email
+	});
 
 	return true;
 });
