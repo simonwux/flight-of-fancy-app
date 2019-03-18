@@ -2,7 +2,6 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
-import { Tracker } from "meteor/tracker";
 
 import Signup from "../ui/Signup.jsx";
 import Login from "../ui/Login.jsx";
@@ -10,10 +9,28 @@ import App from "../ui/App.jsx";
 import NotFound from "../ui/NotFound.jsx";
 
 const browserHistory = createBrowserHistory();
-window.browserHistory = browserHistory;
 
 const authPages = ["/app"];
 const unAuthpages = ["/", "signup"];
+
+// Tracking auth status
+export const authStatus = (isLoggedin) => {
+	// get the current location
+	const pathname = browserHistory.location.pathname;
+
+	const isUnAuthPage = unAuthpages.includes(pathname);
+	const isAuthPage = authPages.includes(pathname);
+
+	// if user on an unauthenticated page and logged in, redirect to /app
+	if (isUnAuthPage && isLoggedin) {
+		browserHistory.replace("/app");
+	}
+	// if user on an authenticated page but not logged in, redirect to /
+	if (isAuthPage && !isLoggedin) {
+		browserHistory.replace("/");
+	}
+};
+
 
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
@@ -44,21 +61,5 @@ export const renderRoutes = () => (
 	</Router>
 );
 
-// Tracking auth status
-Tracker.autorun(() => {
-	const isLoggedin = !!Meteor.userId();
-	// get the current location
-	const pathname = browserHistory.location.pathname;
 
-	const isUnAuthPage = unAuthpages.includes(pathname);
-	const isAuthPage = authPages.includes(pathname);
 
-	// if user on an unauthenticated page and logged in, redirect to /app
-	if (isUnAuthPage && isLoggedin) {
-		browserHistory.replace("/app");
-	}
-	// if user on an authenticated page but not logged in, redirect to /
-	if (isAuthPage && !isLoggedin) {
-		browserHistory.replace("/");
-	}
-});
