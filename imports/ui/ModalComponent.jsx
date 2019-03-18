@@ -1,7 +1,11 @@
 import Modal from "react-modal";
 import React from "react";
+import PropTypes from "prop-types";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+import { Answers } from "../api/answers.js";
 
-export default class ModalComponent extends React.Component {
+class ModalComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,6 +20,44 @@ export default class ModalComponent extends React.Component {
 		});
 	}
 
+	onClick() {
+		Meteor.call(
+			"Answers.insert", // method name
+			this.state.answer, // parameter
+			this.props.postID,
+			// arrow function
+			(err, res) => {
+				if (err) {
+					alert("There was error inserting. Check the console.");
+					console.log(err);
+				}
+
+				console.log("Answer submitted", res);
+
+				this.setState({
+					topic: ""
+				});
+			}
+		);
+
+		this.setState({ 
+			isOpen: false 
+		});
+		
+	}
+
+	renderSubmittedAnswer() {
+		let matchedAnswer = this.props.Answers.filter(a => a.parentId === this.props.postID);
+
+		return  matchedAnswer.map(a => (
+			<div key={a._id}>
+				Author {a.author} : {a.content}
+
+				<button>{a.likes}</button>
+			</div>
+		));
+	}
+
 	render() {
 		return (
 			<div>
@@ -27,6 +69,7 @@ export default class ModalComponent extends React.Component {
 				<Modal
 					isOpen={this.state.isOpen}
 					contentLabel="Follow the topic"
+					ariaHideApp={false}
 				>
 					<p>Try to finish the story</p>
 
@@ -37,17 +80,39 @@ export default class ModalComponent extends React.Component {
 							value={this.state.answer}
 							onChange={this.onChange.bind(this)}
 						/>
-						<button>Add your answer</button>
 					</form>
 
-					<button onClick={() => this.setState({ isOpen: false, answer: "" })}>
+					<button onClick={this.onClick.bind(this)}>
 						{" "}
 						Submit{" "}
 					</button>
-
 				</Modal>
 
+				<div className="answer">{this.renderSubmittedAnswer()}</div>
 			</div>
 		);
 	}
 }
+
+ModalComponent.propTypes = {
+	postID: PropTypes.string.isRequired,
+	Answers: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
+// higher order component
+export default withTracker(() => {
+	const handle1 = Meteor.subscribe("answers");
+	return {
+		Answers: Answers.find({}).fetch(),
+		author: Meteor.user(),
+		ready: handle1.ready()
+	};
+})(ModalComponent);
+
+
+
+
+
+
+
+

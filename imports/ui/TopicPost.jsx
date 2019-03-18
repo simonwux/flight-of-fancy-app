@@ -45,9 +45,9 @@ class TopicPost extends Component {
 
 	renderPostedTopics() {
 		return this.props.Topics.map(t => (
-			<div key={t._id}>
-				{t.topic}
-				<ModalComponent />
+			<div key={t._id} className="card">
+				Author {t.author} : {t.topic}
+				<ModalComponent postID={t._id} />
 			</div>
 		));
 	}
@@ -80,8 +80,8 @@ TopicPost.propTypes = {
 };
 
 // query and fetch all data from
-// messages4Fancy collection
-// it returns a list of all the posting topics
+// Topics collection
+// It returns a list of all the posting topics
 export default withTracker(() => {
 	const handle = Meteor.subscribe("topics");
 	return {
