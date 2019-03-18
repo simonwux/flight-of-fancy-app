@@ -17,11 +17,11 @@ export default class Signup extends React.Component {
 		let email = e.target.email.value.trim();
 		let pwd = e.target.password.value.trim();
 
-		// if (pwd.length < 8) {
-		// 	return this.setState({
-		// 		error: "Password must be more than 8 long"
-		// 	});
-		// }
+		if (pwd.length < 8) {
+			return this.setState({
+				error: "Password must be more than 8 characters."
+			});
+		}
 
 		Accounts.createUser(
 			{ username: username, email: email, password: pwd },

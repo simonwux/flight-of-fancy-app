@@ -2,6 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
+import { Tracker } from "meteor/tracker";
 
 import Signup from "../ui/Signup.jsx";
 import Login from "../ui/Login.jsx";
@@ -11,10 +12,10 @@ import NotFound from "../ui/NotFound.jsx";
 const browserHistory = createBrowserHistory();
 
 const authPages = ["/app"];
-const unAuthpages = ["/", "signup"];
+const unAuthpages = ["/", "/signup"];
 
 // Tracking auth status
-export const authStatus = (isLoggedin) => {
+const authStatus = isLoggedin => {
 	// get the current location
 	const pathname = browserHistory.location.pathname;
 
@@ -31,7 +32,6 @@ export const authStatus = (isLoggedin) => {
 	}
 };
 
-
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
 		<Switch>
@@ -47,7 +47,7 @@ export const renderRoutes = () => (
 				path="/signup"
 				render={() =>
 					Meteor.userId() ? <Redirect to="/app" /> : <Signup />
-				} 
+				}
 			/>
 			<Route
 				exact
@@ -61,5 +61,7 @@ export const renderRoutes = () => (
 	</Router>
 );
 
-
-
+Tracker.autorun(() => {
+	const isLoggedin = !!Meteor.userId();
+	authStatus(isLoggedin);
+});

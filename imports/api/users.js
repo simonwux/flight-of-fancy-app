@@ -9,7 +9,7 @@ Accounts.validateNewUser(user => {
 	const userSchema = new SimpleSchema({
 		username: {
 			type: String,
-			min: 1,
+			min: 2,
 			max: 30
 		},
 
@@ -18,7 +18,7 @@ Accounts.validateNewUser(user => {
 			regEx: SimpleSchema.RegEx.Email
 		}
 	});
-	
+
 	try {
 		userSchema.validate({
 			username: username,

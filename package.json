@@ -12,6 +12,7 @@
     "bcrypt": "^3.0.4",
     "history": "^4.9.0",
     "meteor-node-stubs": "^0.4.1",
+    "particles.js": "^2.0.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-modal": "^3.8.1",
