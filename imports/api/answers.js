@@ -36,5 +36,8 @@ Meteor.methods({
 			likes: 0,
 			parentId: postId
 		});
+	},
+	"Answers.updateLikes"(_id) {
+		Answers.update({ _id: _id }, { $inc: { likes: 1 } });
 	}
 });

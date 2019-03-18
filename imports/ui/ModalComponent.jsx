@@ -43,7 +43,6 @@ class ModalComponent extends React.Component {
 		this.setState({ 
 			isOpen: false 
 		});
-		
 	}
 
 	renderSubmittedAnswer() {
@@ -53,7 +52,7 @@ class ModalComponent extends React.Component {
 			<div key={a._id}>
 				Author {a.author} : {a.content}
 
-				<button>{a.likes}</button>
+				<button onClick={() => Meteor.call("Answers.updateLikes", a._id)}>{a.likes}</button>
 			</div>
 		));
 	}
@@ -83,8 +82,7 @@ class ModalComponent extends React.Component {
 					</form>
 
 					<button onClick={this.onClick.bind(this)}>
-						{" "}
-						Submit{" "}
+						Submit
 					</button>
 				</Modal>
 
