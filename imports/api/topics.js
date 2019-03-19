@@ -34,7 +34,7 @@ Meteor.methods({
 				type: String,
 				min: 10,
 				max: 280,
-				lable: "Your topic"
+				label: "Your topic"
 			}
 		}).validate({
 			topic: topic
@@ -43,8 +43,7 @@ Meteor.methods({
 		Topics.insert({
 			topic: topic,
 			author: Meteor.user().username,
-			createdAt: Date.now(),
-			totalAnswers: 0
+			createdAt: new Date()
 		});
 	}
 });

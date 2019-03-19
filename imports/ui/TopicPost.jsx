@@ -5,7 +5,8 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Topics } from "../api/topics.js";
 import { Answers } from "../api/answers";
 import ModalComponent from "./ModalComponent.jsx";
-import { Input, Message, Icon } from "semantic-ui-react";
+import { Input, Message } from "semantic-ui-react";
+import moment from "moment";
 import "./style/topics.css";
 
 class TopicPost extends Component {
@@ -54,7 +55,8 @@ class TopicPost extends Component {
 	renderPostedTopics() {
 		return this.props.Topics.map((t, index) => (
 			<div key={t._id} className="card">
-				Author {t.author} : {t.topic} Total: {console.log(t)}
+				Author {t.author} : {t.topic} {moment(t.createdAt).fromNow()}
+				<br/>Total: {console.log(t)}
 				{this.props.answerCount[index]}
 				<ModalComponent topicID={t._id} topicContent={t.topic} />
 			</div>
@@ -71,7 +73,7 @@ class TopicPost extends Component {
 				{this.state.error ? (
 					<Message negative>
 						<Message.Header>
-							We are sorry we cannot submit your answer
+							We are sorry we cannot submit your topic
 						</Message.Header>
 						<p>{this.state.error}</p>
 					</Message>
@@ -84,7 +86,7 @@ class TopicPost extends Component {
 					size="big"
 					icon="add circle"
 					type="text"
-					placeholder="If I were a super hero..."
+					placeholder="If you were a super hero..."
 					value={this.state.topic}
 					onChange={this.onChange.bind(this)}
 					onKeyPress={this.onKey.bind(this)}

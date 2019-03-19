@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Answers } from "../api/answers.js";
+import moment from "moment";
 import {
 	Button,
 	Header,
@@ -63,7 +64,7 @@ class ModalComponent extends React.Component {
 
 		return matchedAnswer.map(a => (
 			<div key={a._id}>
-				Author {a.author} : {a.content}
+				Author {a.author} : {a.content}  {moment(a.createdAt).fromNow()}
 				<Button
 					onClick={() => Meteor.call("Answers.updateLikes", a._id)}
 				>

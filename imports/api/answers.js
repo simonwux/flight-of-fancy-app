@@ -37,7 +37,8 @@ Meteor.methods({
 			content: ans,
 			author: Meteor.user().username,
 			likes: 0,
-			parentId: postId
+			parentId: postId,
+			createdAt: new Date()
 		});
 	},
 	"Answers.updateLikes"(_id) {
