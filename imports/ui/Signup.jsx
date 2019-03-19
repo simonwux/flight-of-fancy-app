@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Accounts } from "meteor/accounts-base";
+import AboutTheApp from "./AboutTheApp.jsx";
+import Footer from "./Footer.jsx";
 
 export default class Signup extends React.Component {
 	constructor(props) {
@@ -41,31 +43,35 @@ export default class Signup extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Sign up</h1>
+			<div className="signup row align-items-center">
+				<div className="col-md-6 text-center">
+					<AboutTheApp />
+				</div>
 
-				{this.state.error ? <p>{this.state.error}</p> : undefined}
+				<div className="col-md-6 text-center"> 
+					<h1>Sign up</h1>
 
-				<form onSubmit={this.onSubmit.bind(this)} noValidate>
-					<input
-						type="text"
-						name="username"
-						placeholder="Username"
-					/>
-					<input
-						type="email"
-						name="email"
-						placeholder="Email"
-					/>
-					<input
-						type="password"
-						name="password"
-						placeholder="Password"
-					/>
-					<button>Create Account</button>
-				</form>
+					{this.state.error ? <p>{this.state.error}</p> : undefined}
 
-				<Link to="/">login in </Link>
+					<form onSubmit={this.onSubmit.bind(this)} noValidate>
+						<input
+							type="text"
+							name="username"
+							placeholder="Username"
+						/>
+						<input type="email" name="email" placeholder="Email" />
+						<input
+							type="password"
+							name="password"
+							placeholder="Password"
+						/>
+						<button>Create Account</button>
+					</form>
+
+					<Link to="/">login in </Link>
+				</div>
+
+				<Footer />
 			</div>
 		);
 	}

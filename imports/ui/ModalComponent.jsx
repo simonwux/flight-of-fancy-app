@@ -92,6 +92,7 @@ class ModalComponent extends React.Component {
 					</form>
 
 					<button onClick={this.onClick.bind(this)}>Submit</button>
+					<button onClick={() => this.setState({ isOpen: false })}>Cancel</button>
 				</Modal>
 
 				<div className="answer">{this.renderSubmittedAnswer()}</div>

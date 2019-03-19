@@ -50,24 +50,12 @@ class TopicPost extends Component {
 		}
 	}
 
-	callBackFunToModal(totalAnswers) {
-		this.setState({
-			totalAnswers: totalAnswers
-		});
-	}
-
 	renderPostedTopics() {
 		return this.props.Topics.map((t, index) => (
 			<div key={t._id} className="card">
-				Author {t.author} : {t.topic} Total:{" "}
-				{console.log(t)}
+				Author {t.author} : {t.topic} Total: {console.log(t)}
 				{this.props.answerCount[index]}
-				<ModalComponent
-					postID={t._id}
-					callbackFromParent={totalAnswers => {
-						this.callBackFunToModal(totalAnswers);
-					}}
-				/>
+				<ModalComponent postID={t._id} />
 			</div>
 		));
 	}

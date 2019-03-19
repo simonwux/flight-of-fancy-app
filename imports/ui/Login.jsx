@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
+import AboutTheApp from "./AboutTheApp.jsx";
+import Footer from "./Footer.jsx";
+import Particle from "particlesjs";
+import { Container, Grid, Input, Form, Button } from "semantic-ui-react";
+import "./style/Login.css";
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -10,46 +15,88 @@ export default class Login extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+		Particle.init({
+			selector: ".background",
+			maxParticles: 120,
+			color: ["#95afc0"],
+			speed: 1,
+			connectParticles: true
+		});
+	}
+
 	onSubmit(e) {
 		e.preventDefault();
 
 		let email = e.target.email.value.trim();
 		let pwd = e.target.password.value.trim();
 
-		Meteor.loginWithPassword(
-			{ email: email }, pwd,
-			err => {
-				if (err) {
-					this.setState({
-						error: "Login Failed. Please check email and password."
-					});
-				} else {
-					this.setState({
-						error: ""
-					});
-				}
+		Meteor.loginWithPassword({ email: email }, pwd, err => {
+			if (err) {
+				this.setState({
+					error: "Login Failed. Please check email and password."
+				});
+			} else {
+				this.setState({
+					error: ""
+				});
 			}
-		);
+		});
 	}
 
 	render() {
 		return (
 			<div>
-				<h1>Login here</h1>
+				<canvas className="background" />
+				<Container>
+					<Grid divided="vertically" verticalAlign="middle" id="grid">
+						<Grid.Row columns={2}>
+							<Grid.Column>
+								<AboutTheApp />
+							</Grid.Column>
+							<Grid.Column>
+								<h1>Login here</h1>
 
-				{this.state.error ? <p>{this.state.error}</p> : undefined}
+								{this.state.error ? (
+									<p>{this.state.error}</p>
+								) : (
+									undefined
+								)}
 
-				<form onSubmit={this.onSubmit.bind(this)} noValidate>
-					<input type="email" name="email" placeholder="Email" />
-					<input
-						type="password"
-						name="password"
-						placeholder="Password"
-					/>
-					<button>Login</button>
-				</form>
+								<Form
+									onSubmit={this.onSubmit.bind(this)}
+									noValidate
+								>
+									<Form.Field>	
+										<Input
+											icon="at"
+											iconPosition="left"
+											type="email"
+											name="email"
+											placeholder="Email"
+										/>
+									</Form.Field>
 
-				<Link to="/signup">signup</Link>
+									<Form.Field>
+										<Input
+											icon="users"
+											iconPosition="left"
+											type="password"
+											name="password"
+											placeholder="Password"
+										/>
+									</Form.Field>
+
+									
+									<Button>Login</Button>
+								</Form>
+
+								<Link to="/signup">signup</Link>
+							</Grid.Column>
+						</Grid.Row>
+						<Footer />
+					</Grid>
+				</Container>
 			</div>
 		);
 	}

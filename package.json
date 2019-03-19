@@ -12,13 +12,15 @@
     "bcrypt": "^3.0.4",
     "history": "^4.9.0",
     "meteor-node-stubs": "^0.4.1",
-    "particles.js": "^2.0.0",
+    "particlesjs": "^2.2.3",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-modal": "^3.8.1",
     "react-router": "^4.4.0",
     "react-router-dom": "^4.4.0",
     "reactstrap": "^7.1.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0",
     "simpl-schema": "^1.5.5"
   },
   "meteor": {

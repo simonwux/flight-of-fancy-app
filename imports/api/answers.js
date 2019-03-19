@@ -9,9 +9,7 @@ if (Meteor.isServer) {
 	// the parameter subscribed at the front end
 	Meteor.publish("answers", function publishAnswers() {
 		return Answers.find(
-			{
-				// author: Meteor.user().username
-			}
+			{}
 		);
 	});
 }
@@ -23,12 +21,13 @@ Meteor.methods({
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
-
+		// schema to check 
 		new SimpleSchema({
 			ans: {
 				type: String,
-				min: 10,
-				max: 280
+				min: 3,
+				max: 280,
+				label: "Your answer"
 			}
 		}).validate({
 			ans: ans
