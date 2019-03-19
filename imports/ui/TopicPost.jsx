@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Topics } from "../api/topics.js";
+import { Answers } from "../api/answers";
 
 import ModalComponent from "./ModalComponent.jsx";
 
@@ -31,9 +32,9 @@ class TopicPost extends Component {
 				(err, res) => {
 					if (err) {
 						this.setState({
-							error:err.reason
+							error: err.reason
 						});
-						// alert("There was error inserting. Check the console.");
+
 						console.log(err);
 						return;
 					}
@@ -49,11 +50,24 @@ class TopicPost extends Component {
 		}
 	}
 
+	callBackFunToModal(totalAnswers) {
+		this.setState({
+			totalAnswers: totalAnswers
+		});
+	}
+
 	renderPostedTopics() {
-		return this.props.Topics.map(t => (
+		return this.props.Topics.map((t, index) => (
 			<div key={t._id} className="card">
-				Author {t.author} : {t.topic} 
-				<ModalComponent postID={t._id} />
+				Author {t.author} : {t.topic} Total:{" "}
+				{console.log(t)}
+				{this.props.answerCount[index]}
+				<ModalComponent
+					postID={t._id}
+					callbackFromParent={totalAnswers => {
+						this.callBackFunToModal(totalAnswers);
+					}}
+				/>
 			</div>
 		));
 	}
@@ -85,14 +99,34 @@ class TopicPost extends Component {
 }
 
 TopicPost.propTypes = {
-	Topics: PropTypes.arrayOf(PropTypes.object).isRequired
+	Topics: PropTypes.arrayOf(PropTypes.object).isRequired,
+	answerCount: PropTypes.arrayOf(PropTypes.number).isRequired
 };
 
 // query and fetch all data from
 // Topics collection
 // It returns a list of all the posting topics
 export default withTracker(() => {
+	// gain the access to two collections
 	const handle = Meteor.subscribe("topics");
+	Meteor.subscribe("answers");
+	const topics = Topics.find(
+		{},
+		{
+			sort: {
+				createdAt: -1
+			}
+		}
+	).fetch();
+
+	const answerCount = [];
+
+	for (let i = 0; i < topics.length; i++) {
+		const count = Answers.find({ parentId: topics[i]._id }).count();
+		answerCount.push(count);
+	}
+	console.log(answerCount);
+
 	return {
 		Topics: Topics.find(
 			{},
@@ -102,6 +136,7 @@ export default withTracker(() => {
 				}
 			}
 		).fetch(),
+		answerCount: answerCount,
 		author: Meteor.user(),
 		ready: handle.ready()
 	};

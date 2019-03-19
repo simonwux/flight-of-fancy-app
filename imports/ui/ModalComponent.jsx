@@ -47,6 +47,7 @@ class ModalComponent extends React.Component {
 		);
 	}
 
+
 	renderSubmittedAnswer() {
 		let matchedAnswer = this.props.Answers.filter(
 			a => a.parentId === this.props.postID
@@ -101,7 +102,7 @@ class ModalComponent extends React.Component {
 
 ModalComponent.propTypes = {
 	postID: PropTypes.string.isRequired,
-	Answers: PropTypes.arrayOf(PropTypes.object).isRequired
+	Answers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 // higher order component
