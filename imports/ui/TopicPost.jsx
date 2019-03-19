@@ -4,8 +4,9 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Topics } from "../api/topics.js";
 import { Answers } from "../api/answers";
-
 import ModalComponent from "./ModalComponent.jsx";
+import { Input, Message, Icon } from "semantic-ui-react";
+import "./style/topics.css";
 
 class TopicPost extends Component {
 	constructor(props) {
@@ -55,7 +56,7 @@ class TopicPost extends Component {
 			<div key={t._id} className="card">
 				Author {t.author} : {t.topic} Total: {console.log(t)}
 				{this.props.answerCount[index]}
-				<ModalComponent topicID={t._id} topicContent={t.topic}/>
+				<ModalComponent topicID={t._id} topicContent={t.topic} />
 			</div>
 		));
 	}
@@ -67,18 +68,27 @@ class TopicPost extends Component {
 			<div>
 				<h2>Post Your Topic</h2>
 
-				{this.state.error ? <p>{this.state.error}</p> : undefined}
+				{this.state.error ? (
+					<Message negative>
+						<Message.Header>
+							We are sorry we cannot submit your answer
+						</Message.Header>
+						<p>{this.state.error}</p>
+					</Message>
+				) : (
+					undefined
+				)}
 
-				<label htmlFor="topic">
-					Topic: {}
-					<input
-						type="text"
-						placeholder="Enter your topic here"
-						value={this.state.topic}
-						onChange={this.onChange.bind(this)}
-						onKeyPress={this.onKey.bind(this)}
-					/>
-				</label>
+				<Input
+					fluid
+					size="big"
+					icon="add circle"
+					type="text"
+					placeholder="If I were a super hero..."
+					value={this.state.topic}
+					onChange={this.onChange.bind(this)}
+					onKeyPress={this.onKey.bind(this)}
+				/>
 
 				<div className="topic">{this.renderPostedTopics()}</div>
 			</div>

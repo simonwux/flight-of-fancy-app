@@ -12,6 +12,7 @@ import {
 	Input,
 	Message
 } from "semantic-ui-react";
+import "./style/answers.css";
 
 class ModalComponent extends React.Component {
 	constructor(props) {
@@ -63,11 +64,11 @@ class ModalComponent extends React.Component {
 		return matchedAnswer.map(a => (
 			<div key={a._id}>
 				Author {a.author} : {a.content}
-				<button
+				<Button
 					onClick={() => Meteor.call("Answers.updateLikes", a._id)}
 				>
 					{a.likes}
-				</button>
+				</Button>
 			</div>
 		));
 	}
@@ -75,10 +76,12 @@ class ModalComponent extends React.Component {
 	render() {
 		return (
 			<div>
+				<br/>
 				<Modal
 					trigger={
-						<Button onClick={() => this.setState({ isOpen: true })}>
-							Add my answer
+						<Button labelPosition="left" icon primary onClick={() => this.setState({ isOpen: true })}>
+							<Icon name="edit" />
+							Add reply
 						</Button>
 					}
 					open={this.state.isOpen}
