@@ -3,9 +3,18 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import AboutTheApp from "./AboutTheApp.jsx";
 import Footer from "./Footer.jsx";
-import Particle from "particlesjs";
-import { Container, Grid, Input, Form, Button } from "semantic-ui-react";
-import "./style/Login.css";
+import {
+	Container,
+	Button,
+	Form,
+	Grid,
+	Header,
+	Image,
+	Message,
+	Segment,
+	Label
+} from "semantic-ui-react";
+import ParticlejsBackground from "./ParticlejsBackground.jsx";
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -15,23 +24,13 @@ export default class Login extends React.Component {
 		};
 	}
 
-	componentDidMount() {
-		Particle.init({
-			selector: ".background",
-			maxParticles: 120,
-			color: ["#95afc0"],
-			speed: 1,
-			connectParticles: true
-		});
-	}
-
 	onSubmit(e) {
 		e.preventDefault();
 
-		let email = e.target.email.value.trim();
+		let username = e.target.username.value.trim();
 		let pwd = e.target.password.value.trim();
 
-		Meteor.loginWithPassword({ email: email }, pwd, err => {
+		Meteor.loginWithPassword({ username: username }, pwd, err => {
 			if (err) {
 				this.setState({
 					error: "Login Failed. Please check email and password."
@@ -47,56 +46,70 @@ export default class Login extends React.Component {
 	render() {
 		return (
 			<div>
-				<canvas className="background" />
+				<ParticlejsBackground />
+
 				<Container>
-					<Grid divided="vertically" verticalAlign="middle" id="grid">
+					<Grid
+						textAlign="center"
+						style={{ height: "95vh" }}
+						divided="vertically"
+						verticalAlign="middle"
+						id="grid"
+					>
 						<Grid.Row columns={2}>
 							<Grid.Column>
 								<AboutTheApp />
 							</Grid.Column>
 							<Grid.Column>
-								<h1>Login here</h1>
-
+								<Header as="h2" color="teal" textAlign="center">
+									<Image src="/logo.png" /> Log-in to your
+									account
+								</Header>
 								{this.state.error ? (
-									<p>{this.state.error}</p>
+									<Label basic color="red" pointing="below" size="large">
+										{this.state.error}
+									</Label>
 								) : (
 									undefined
 								)}
 
 								<Form
+									size="large"
 									onSubmit={this.onSubmit.bind(this)}
 									noValidate
 								>
-									<Form.Field>	
-										<Input
-											icon="at"
+									<Segment stacked>
+										<Form.Input
+											fluid
+											icon="user"
 											iconPosition="left"
-											type="email"
-											name="email"
-											placeholder="Email"
+											type="text"
+											name="username"
+											placeholder="Username"
 										/>
-									</Form.Field>
-
-									<Form.Field>
-										<Input
-											icon="users"
+										<Form.Input
+											fluid
+											icon="lock"
 											iconPosition="left"
-											type="password"
-											name="password"
 											placeholder="Password"
+											name="password"
+											type="password"
 										/>
-									</Form.Field>
 
-									
-									<Button>Login</Button>
+										<Button color="teal" fluid size="large">
+											Login
+										</Button>
+									</Segment>
 								</Form>
-
-								<Link to="/signup">signup</Link>
+								<Message>
+									New to us?{" "}
+									<Link to="/signup"> Sign up</Link>
+								</Message>
 							</Grid.Column>
 						</Grid.Row>
-						<Footer />
 					</Grid>
 				</Container>
+				<Footer />
 			</div>
 		);
 	}

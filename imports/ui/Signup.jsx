@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import { Accounts } from "meteor/accounts-base";
 import AboutTheApp from "./AboutTheApp.jsx";
 import Footer from "./Footer.jsx";
+import ParticlejsBackground from "./ParticlejsBackground.jsx";
+import {
+	Container,
+	Button,
+	Form,
+	Grid,
+	Header,
+	Image,
+	Message,
+	Segment,
+	Label
+} from "semantic-ui-react";
 
 export default class Signup extends React.Component {
 	constructor(props) {
@@ -43,34 +55,76 @@ export default class Signup extends React.Component {
 
 	render() {
 		return (
-			<div className="signup row align-items-center">
-				<div className="col-md-6 text-center">
-					<AboutTheApp />
-				</div>
+			<div>
+				<ParticlejsBackground />
+				<Container>
+					<Grid
+						textAlign="center"
+						style={{ height: "95vh" }}
+						divided="vertically"
+						verticalAlign="middle"
+						id="grid"
+					>
+						<Grid.Row columns={2}>
+							<Grid.Column>
+								<AboutTheApp />
+							</Grid.Column>
+							<Grid.Column>
+								<Header as="h2" color="teal" textAlign="center">
+									<Image src="/logo.png" /> Sign up
+								</Header>
+								{this.state.error ? (
+									<Label basic color="red" pointing="below" size="large">
+										{this.state.error}
+									</Label>
+								) : (
+									undefined
+								)}
+								<Form
+									size="large"
+									onSubmit={this.onSubmit.bind(this)}
+									noValidate
+								>
+									<Segment stacked>
+										<Form.Input
+											fluid
+											icon="at"
+											iconPosition="left"
+											type="email"
+											name="email"
+											placeholder="Email"
+										/>
+										<Form.Input
+											fluid
+											icon="users"
+											iconPosition="left"
+											type="text"
+											name="username"
+											placeholder="Username"
+										/>
 
-				<div className="col-md-6 text-center"> 
-					<h1>Sign up</h1>
+										<Form.Input
+											fluid
+											icon="lock"
+											iconPosition="left"
+											type="password"
+											name="password"
+											placeholder="Password"
+										/>
 
-					{this.state.error ? <p>{this.state.error}</p> : undefined}
-
-					<form onSubmit={this.onSubmit.bind(this)} noValidate>
-						<input
-							type="text"
-							name="username"
-							placeholder="Username"
-						/>
-						<input type="email" name="email" placeholder="Email" />
-						<input
-							type="password"
-							name="password"
-							placeholder="Password"
-						/>
-						<button>Create Account</button>
-					</form>
-
-					<Link to="/">login in </Link>
-				</div>
-
+										<Button color="teal" fluid size="large">
+											Create Account
+										</Button>
+									</Segment>
+								</Form>
+								<Message>
+									Already has an account?
+									<Link to="/"> login</Link>
+								</Message>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
+				</Container>
 				<Footer />
 			</div>
 		);
