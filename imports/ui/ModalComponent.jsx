@@ -1,9 +1,17 @@
-import Modal from "react-modal";
 import React from "react";
 import PropTypes from "prop-types";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Answers } from "../api/answers.js";
+import {
+	Button,
+	Header,
+	Icon,
+	Modal,
+	Form,
+	Input,
+	Message
+} from "semantic-ui-react";
 
 class ModalComponent extends React.Component {
 	constructor(props) {
@@ -25,7 +33,7 @@ class ModalComponent extends React.Component {
 		Meteor.call(
 			"Answers.insert", // method name
 			this.state.answer, // parameter
-			this.props.postID,
+			this.props.topicID,
 			// arrow function
 			(err, res) => {
 				if (err) {
@@ -47,10 +55,9 @@ class ModalComponent extends React.Component {
 		);
 	}
 
-
 	renderSubmittedAnswer() {
 		let matchedAnswer = this.props.Answers.filter(
-			a => a.parentId === this.props.postID
+			a => a.parentId === this.props.topicID
 		);
 
 		return matchedAnswer.map(a => (
@@ -68,31 +75,59 @@ class ModalComponent extends React.Component {
 	render() {
 		return (
 			<div>
-				<button onClick={() => this.setState({ isOpen: true })}>
-					{" "}
-					+ Add my answer
-				</button>
-
 				<Modal
-					isOpen={this.state.isOpen}
-					contentLabel="Follow the topic"
-					ariaHideApp={false}
+					trigger={
+						<Button onClick={() => this.setState({ isOpen: true })}>
+							Add my answer
+						</Button>
+					}
+					open={this.state.isOpen}
+					basic
+					size="small"
 				>
-					<p>Try to finish the story</p>
+					<Header icon={<Icon name="grav" inverted color="green"/>} content="Use your imagination" />
 
-					{this.state.error ? <p>{this.state.error}</p> : undefined}
-
-					<form>
-						<input
-							type="text"
-							placeholder="your answer"
-							value={this.state.answer}
-							onChange={this.onChange.bind(this)}
-						/>
-					</form>
-
-					<button onClick={this.onClick.bind(this)}>Submit</button>
-					<button onClick={() => this.setState({ isOpen: false })}>Cancel</button>
+					{this.state.error ? (
+						<Message negative>
+							<Message.Header>
+								We are sorry we cannot submit your answer
+							</Message.Header>
+							<p>{this.state.error}</p>
+						</Message>
+					) : (
+						undefined
+					)}
+					<Modal.Content>
+						<h3>
+							{this.props.topicContent}
+						</h3>
+						<Form>
+							<Input
+								fluid
+								icon="search"
+								type="text"
+								placeholder="your answer"
+								value={this.state.answer}
+								onChange={this.onChange.bind(this)}
+							/>
+						</Form>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button
+							color="green"
+							onClick={this.onClick.bind(this)}
+							inverted
+						>
+							<Icon name="checkmark" /> Submit
+						</Button>
+						<Button
+							color="green"
+							onClick={() => this.setState({ isOpen: false })}
+							inverted
+						>
+							<Icon name="cancel" /> Cancel
+						</Button>
+					</Modal.Actions>
 				</Modal>
 
 				<div className="answer">{this.renderSubmittedAnswer()}</div>
@@ -102,8 +137,9 @@ class ModalComponent extends React.Component {
 }
 
 ModalComponent.propTypes = {
-	postID: PropTypes.string.isRequired,
+	topicID: PropTypes.string.isRequired,
 	Answers: PropTypes.arrayOf(PropTypes.object).isRequired,
+	topicContent: PropTypes.string.isRequired
 };
 
 // higher order component

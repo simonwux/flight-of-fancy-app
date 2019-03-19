@@ -55,7 +55,7 @@ class TopicPost extends Component {
 			<div key={t._id} className="card">
 				Author {t.author} : {t.topic} Total: {console.log(t)}
 				{this.props.answerCount[index]}
-				<ModalComponent postID={t._id} />
+				<ModalComponent topicID={t._id} topicContent={t.topic}/>
 			</div>
 		));
 	}
