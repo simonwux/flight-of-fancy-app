@@ -9,12 +9,12 @@ import {
 	Form,
 	Grid,
 	Header,
-	Image,
 	Message,
 	Segment,
 	Label
 } from "semantic-ui-react";
 import ParticlejsBackground from "./ParticlejsBackground.jsx";
+import "./style/landing.css";
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -61,12 +61,20 @@ export default class Login extends React.Component {
 								<AboutTheApp />
 							</Grid.Column>
 							<Grid.Column>
-								<Header as="h2" color="teal" textAlign="center">
-									<Image src="/icon.png" /> Log-in to your
-									account
+								<Header
+									as="h2"
+									textAlign="center"
+									id="loginHeader"
+								>
+									Log-in to your account
 								</Header>
 								{this.state.error ? (
-									<Label basic color="red" pointing="below" size="large">
+									<Label
+										basic
+										color="red"
+										pointing="below"
+										size="large"
+									>
 										{this.state.error}
 									</Label>
 								) : (
@@ -96,7 +104,11 @@ export default class Login extends React.Component {
 											type="password"
 										/>
 
-										<Button color="teal" fluid size="large">
+										<Button
+											fluid
+											size="large"
+											id="loginButton"
+										>
 											Login
 										</Button>
 									</Segment>

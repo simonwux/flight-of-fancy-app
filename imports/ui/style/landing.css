@@ -1,0 +1,23 @@
+#accountButton,
+#loginButton{
+	background: #587798;
+	color: white;
+}
+
+#signupHeader,
+#loginHeader,
+#appIntro {
+	color: white;
+}
+
+#appDesc {
+	opacity: 0.9;
+	font-size: 15px;
+}
+
+#appTitle {
+	margin-top: 20px;
+	font-size: 50px;
+	font-weight: 300;
+	font-family: 'Monoton', cursive;
+}

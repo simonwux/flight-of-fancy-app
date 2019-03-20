@@ -1,7 +1,7 @@
 import React from "react";
-import "./style/landing.css";
 
-export default class AboutTheApp extends React.Component {
+
+export default class AppIntro extends React.Component {
 	render() {
 		return (
 			<div id="appIntro">

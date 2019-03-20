@@ -10,11 +10,12 @@ import {
 	Form,
 	Grid,
 	Header,
-	Image,
 	Message,
 	Segment,
 	Label
 } from "semantic-ui-react";
+import "./style/landing.css";
+
 
 export default class Signup extends React.Component {
 	constructor(props) {
@@ -71,8 +72,8 @@ export default class Signup extends React.Component {
 								<AboutTheApp />
 							</Grid.Column>
 							<Grid.Column>
-								<Header as="h2" color="teal" textAlign="center">
-									<Image src="/icon.png" circular /> Sign up
+								<Header as="h2" textAlign="center" id="signupHeader">
+									Sign up
 								</Header>
 								{this.state.error ? (
 									<Label
@@ -118,7 +119,7 @@ export default class Signup extends React.Component {
 											placeholder="Password"
 										/>
 
-										<Button color="teal" fluid size="large">
+										<Button fluid size="large" id="accountButton">
 											Create Account
 										</Button>
 									</Segment>

@@ -4,9 +4,10 @@
 	top: 0;
 	left: 0;
 	z-index: -1;
-	background-image: url(https://images.unsplash.com/photo-1513786704796-b35842f0dca6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=800&q=60);
+/*	background-image: url(https://images.unsplash.com/photo-1507385722118-c608e69b09b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+*/	background-image: url(https://images.unsplash.com/photo-1443926818681-717d074a57af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 50% 30%;
 	background-size: cover;
 }
 

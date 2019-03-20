@@ -9,6 +9,7 @@ import { Input, Message, Comment, Icon, Feed } from "semantic-ui-react";
 import moment from "moment";
 import "./style/topics.css";
 
+
 class TopicPost extends Component {
 	constructor(props) {
 		super(props);
@@ -58,11 +59,16 @@ class TopicPost extends Component {
 				<Comment>
 					<Comment.Avatar src={t.authorProfile.avatar} />
 					<Comment.Content>
-						<Comment.Author as="a">{t.authorProfile.name}</Comment.Author>
+						<Comment.Author as="a">
+							{t.authorProfile.name}
+						</Comment.Author>
 						<Comment.Metadata>
 							<div>{moment(t.createdAt).fromNow()}</div>
 						</Comment.Metadata>
-						<Comment.Text> <h2>{t.topic}</h2></Comment.Text>
+						<Comment.Text>
+							{" "}
+							<h2>{t.topic}</h2>
+						</Comment.Text>
 						<Comment.Actions>
 							<Feed.Meta>
 								<Feed.Like>
@@ -90,8 +96,6 @@ class TopicPost extends Component {
 
 		return (
 			<div>
-				<h2>Post Your Topic</h2>
-
 				{this.state.error ? (
 					<Message negative>
 						<Message.Header>
