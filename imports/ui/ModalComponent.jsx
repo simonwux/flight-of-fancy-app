@@ -68,7 +68,7 @@ class ModalComponent extends React.Component {
 	}
 
 	// if the number of comments is greater than 3, display "more" and "close" button
-	rederLoadMore() {
+	renderLoadMore() {
 		let matchedAnswer = this.props.Answers.filter(
 			a => a.parentId === this.props.topicID
 		);
@@ -194,7 +194,7 @@ class ModalComponent extends React.Component {
 				<br />
 				{this.renderModal()}
 				<Feed>{this.renderSubmittedAnswer()}</Feed>
-				{this.rederLoadMore()}
+				{this.renderLoadMore()}
 			</div>
 		);
 	}

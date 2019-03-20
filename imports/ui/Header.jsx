@@ -1,9 +1,7 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
 import { Meteor } from "meteor/meteor";
-import { Menu } from "semantic-ui-react";
-
-
+import { Menu, Image } from "semantic-ui-react";
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -30,16 +28,7 @@ export default class Header extends React.Component {
 						active={activeItem === "home"}
 						onClick={this.handleItemClick}
 					/>
-					<Menu.Item
-						name="messages"
-						active={activeItem === "messages"}
-						onClick={this.handleItemClick}
-					/>
-					<Menu.Item
-						name="friends"
-						active={activeItem === "friends"}
-						onClick={this.handleItemClick}
-					/>
+					
 					<Menu.Menu position="right">
 						<Menu.Item>
 							Welcome,{" "}
@@ -53,6 +42,7 @@ export default class Header extends React.Component {
 						/>
 					</Menu.Menu>
 				</Menu>
+				<Image src="/title.png" fluid/>
 			</div>
 		);
 	}

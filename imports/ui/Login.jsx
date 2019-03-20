@@ -62,7 +62,7 @@ export default class Login extends React.Component {
 							</Grid.Column>
 							<Grid.Column>
 								<Header as="h2" color="teal" textAlign="center">
-									<Image src="/logo.png" /> Log-in to your
+									<Image src="/icon.png" /> Log-in to your
 									account
 								</Header>
 								{this.state.error ? (

@@ -72,7 +72,7 @@ export default class Signup extends React.Component {
 							</Grid.Column>
 							<Grid.Column>
 								<Header as="h2" color="teal" textAlign="center">
-									<Image src="/logo.png" /> Sign up
+									<Image src="/icon.png" circular /> Sign up
 								</Header>
 								{this.state.error ? (
 									<Label
