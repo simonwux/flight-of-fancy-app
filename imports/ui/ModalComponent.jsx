@@ -76,8 +76,8 @@ class ModalComponent extends React.Component {
 		if (matchedAnswer.length > 3) {
 			return (
 				<div>
-					<Button onClick={this.loadMore.bind(this)}>More</Button>
-					<Button onClick={this.closeMore.bind(this)}>Close</Button>
+					<Button basic color="violet" onClick={this.loadMore.bind(this)}>view more replies</Button>
+					<Button basic color="violet" onClick={this.closeMore.bind(this)}>close</Button>
 				</div>
 			);
 		}
@@ -90,11 +90,12 @@ class ModalComponent extends React.Component {
 					<Button
 						labelPosition="left"
 						icon
-						primary
+						basic
+						color="blue"
 						onClick={() => this.setState({ isOpen: true })}
 					>
 						<Icon name="edit" />
-						Add reply
+						Shine your idea
 					</Button>
 				}
 				open={this.state.isOpen}
