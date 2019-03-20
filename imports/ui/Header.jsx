@@ -1,24 +1,24 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
-import { Menu } from "semantic-ui-react";
 import { Meteor } from "meteor/meteor";
+import { Menu } from "semantic-ui-react";
+
+
 
 export default class Header extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeItem: "home" 
+			activeItem: "home"
 		};
 	}
 	onLogout() {
 		Accounts.logout();
 	}
 
-	
-
 	handleItemClick() {
 		(e, { name }) => this.setState({ activeItem: name });
-	} 
+	}
 
 	render() {
 		const { activeItem } = this.state;
@@ -42,7 +42,8 @@ export default class Header extends React.Component {
 					/>
 					<Menu.Menu position="right">
 						<Menu.Item>
-							Welcome, { Meteor.user() ? Meteor.user().username : "" }
+							Welcome,{" "}
+							{Meteor.user() ? Meteor.user().username : ""}
 						</Menu.Item>
 
 						<Menu.Item
