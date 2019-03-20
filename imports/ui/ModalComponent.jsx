@@ -33,20 +33,6 @@ class ModalComponent extends React.Component {
 		});
 	}
 
-	// loadMore() {
-	// 	this.setState(prev => {
-	// 		return { visible: prev.visible + 4 };
-	// 	});
-	// }
-
-	loadMore() {
-		this.setState({ visible: this.state.visible + 4 });
-	}
-
-	closeMore() {
-		this.setState({ visible: 3 });
-	}
-
 	onClick() {
 		Meteor.call(
 			"Answers.insert", // method name
@@ -73,6 +59,96 @@ class ModalComponent extends React.Component {
 		);
 	}
 
+	loadMore() {
+		this.setState({ visible: this.state.visible + 4 });
+	}
+
+	closeMore() {
+		this.setState({ visible: 3 });
+	}
+
+	// if the number of comments is greater than 3, display "more" and "close" button
+	rederLoadMore() {
+		let matchedAnswer = this.props.Answers.filter(
+			a => a.parentId === this.props.topicID
+		);
+
+		if (matchedAnswer.length > 3) {
+			return (
+				<div>
+					<Button onClick={this.loadMore.bind(this)}>More</Button>
+					<Button onClick={this.closeMore.bind(this)}>Close</Button>
+				</div>
+			);
+		}
+	}
+
+	renderModal() {
+		return (
+			<Modal
+				trigger={
+					<Button
+						labelPosition="left"
+						icon
+						primary
+						onClick={() => this.setState({ isOpen: true })}
+					>
+						<Icon name="edit" />
+						Add reply
+					</Button>
+				}
+				open={this.state.isOpen}
+				basic
+				size="small"
+			>
+				<Header
+					icon={<Icon name="grav" inverted color="green" />}
+					content="Use your imagination"
+				/>
+
+				{this.state.error ? (
+					<Message negative>
+						<Message.Header>
+							We are sorry we cannot submit your answer
+						</Message.Header>
+						<p>{this.state.error}</p>
+					</Message>
+				) : (
+					undefined
+				)}
+				<Modal.Content>
+					<h3>{this.props.topicContent}</h3>
+					<Form>
+						<Input
+							fluid
+							icon="pencil alternate"
+							type="text"
+							placeholder="your answer"
+							value={this.state.answer}
+							onChange={this.onChange.bind(this)}
+						/>
+					</Form>
+				</Modal.Content>
+				<Modal.Actions>
+					<Button
+						color="green"
+						onClick={this.onClick.bind(this)}
+						inverted
+					>
+						<Icon name="checkmark" /> Submit
+					</Button>
+					<Button
+						color="green"
+						onClick={() => this.setState({ isOpen: false })}
+						inverted
+					>
+						<Icon name="cancel" /> Cancel
+					</Button>
+				</Modal.Actions>
+			</Modal>
+		);
+	}
+
 	renderSubmittedAnswer() {
 		let matchedAnswer = this.props.Answers.filter(
 			a => a.parentId === this.props.topicID
@@ -93,16 +169,15 @@ class ModalComponent extends React.Component {
 							</Feed.Summary>
 							<Feed.Extra text>{a.content}</Feed.Extra>
 							<Feed.Meta>
-								<Feed.Like>
-									<Icon
-										name="like"
-										onClick={() =>
-											Meteor.call(
-												"Answers.updateLikes",
-												a._id
-											)
-										}
-									/>
+								<Feed.Like
+									onClick={() =>
+										Meteor.call(
+											"Answers.updateLikes",
+											a._id
+										)
+									}
+								>
+									<Icon name="like" />
 									{a.likes} Likes
 								</Feed.Like>
 							</Feed.Meta>
@@ -117,71 +192,9 @@ class ModalComponent extends React.Component {
 		return (
 			<div>
 				<br />
-				<Modal
-					trigger={
-						<Button
-							labelPosition="left"
-							icon
-							primary
-							onClick={() => this.setState({ isOpen: true })}
-						>
-							<Icon name="edit" />
-							Add reply
-						</Button>
-					}
-					open={this.state.isOpen}
-					basic
-					size="small"
-				>
-					<Header
-						icon={<Icon name="grav" inverted color="green" />}
-						content="Use your imagination"
-					/>
-
-					{this.state.error ? (
-						<Message negative>
-							<Message.Header>
-								We are sorry we cannot submit your answer
-							</Message.Header>
-							<p>{this.state.error}</p>
-						</Message>
-					) : (
-						undefined
-					)}
-					<Modal.Content>
-						<h3>{this.props.topicContent}</h3>
-						<Form>
-							<Input
-								fluid
-								icon="pencil alternate"
-								type="text"
-								placeholder="your answer"
-								value={this.state.answer}
-								onChange={this.onChange.bind(this)}
-							/>
-						</Form>
-					</Modal.Content>
-					<Modal.Actions>
-						<Button
-							color="green"
-							onClick={this.onClick.bind(this)}
-							inverted
-						>
-							<Icon name="checkmark" /> Submit
-						</Button>
-						<Button
-							color="green"
-							onClick={() => this.setState({ isOpen: false })}
-							inverted
-						>
-							<Icon name="cancel" /> Cancel
-						</Button>
-					</Modal.Actions>
-				</Modal>
-
+				{this.renderModal()}
 				<Feed>{this.renderSubmittedAnswer()}</Feed>
-				<Button onClick={this.loadMore.bind(this)}>More</Button>
-				<Button onClick={this.closeMore.bind(this)}>Close</Button>
+				{this.rederLoadMore()}
 			</div>
 		);
 	}
@@ -195,7 +208,7 @@ ModalComponent.propTypes = {
 
 // higher order component
 export default withTracker(() => {
-	const handle1 = Meteor.subscribe("answers");
+	const handle = Meteor.subscribe("answers");
 	return {
 		Answers: Answers.find(
 			{},
@@ -206,6 +219,6 @@ export default withTracker(() => {
 			}
 		).fetch(),
 		author: Meteor.user(),
-		ready: handle1.ready()
+		ready: handle.ready()
 	};
 })(ModalComponent);
