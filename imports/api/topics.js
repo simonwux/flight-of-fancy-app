@@ -34,7 +34,7 @@ Meteor.methods({
 				type: String,
 				min: 10,
 				max: 280,
-				lable: "Your topic"
+				label: "Your topic"
 			}
 		}).validate({
 			topic: topic
