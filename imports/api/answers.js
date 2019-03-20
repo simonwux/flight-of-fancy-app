@@ -35,9 +35,13 @@ Meteor.methods({
 
 		Answers.insert({
 			content: ans,
-			author: Meteor.user().username,
+			authorProfile: {
+				name: Meteor.user().username,
+				avatar: Meteor.user().profile.avatar
+			},
 			likes: 0,
-			parentId: postId
+			parentId: postId,
+			createdAt: new Date()
 		});
 	},
 	"Answers.updateLikes"(_id) {

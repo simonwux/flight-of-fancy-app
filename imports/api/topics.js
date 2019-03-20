@@ -42,9 +42,11 @@ Meteor.methods({
 
 		Topics.insert({
 			topic: topic,
-			author: Meteor.user().username,
-			createdAt: Date.now(),
-			totalAnswers: 0
+			authorProfile: {
+				name: Meteor.user().username,
+				avatar: Meteor.user().profile.avatar
+			},
+			createdAt: new Date()
 		});
 	}
 });

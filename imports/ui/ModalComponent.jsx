@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Answers } from "../api/answers.js";
+import moment from "moment";
 import {
 	Button,
 	Header,
@@ -10,7 +11,8 @@ import {
 	Modal,
 	Form,
 	Input,
-	Message
+	Message,
+	Feed
 } from "semantic-ui-react";
 import "./style/answers.css";
 
@@ -63,12 +65,35 @@ class ModalComponent extends React.Component {
 
 		return matchedAnswer.map(a => (
 			<div key={a._id}>
-				Author {a.author} : {a.content}
-				<Button
-					onClick={() => Meteor.call("Answers.updateLikes", a._id)}
-				>
-					{a.likes}
-				</Button>
+				<Feed>
+					<Feed.Event>
+						<Feed.Label image={a.authorProfile.avatar} />
+						<Feed.Content>
+							<Feed.Summary>
+								<Feed.User>{a.authorProfile.name}</Feed.User> replied a new
+								answer
+								<Feed.Date>
+									{moment(a.createdAt).fromNow()}
+								</Feed.Date>
+							</Feed.Summary>
+							<Feed.Extra text>{a.content}</Feed.Extra>
+							<Feed.Meta>
+								<Feed.Like>
+									<Icon
+										name="like"
+										onClick={() =>
+											Meteor.call(
+												"Answers.updateLikes",
+												a._id
+											)
+										}
+									/>
+									{a.likes} Likes
+								</Feed.Like>
+							</Feed.Meta>
+						</Feed.Content>
+					</Feed.Event>
+				</Feed>
 			</div>
 		));
 	}
@@ -76,10 +101,15 @@ class ModalComponent extends React.Component {
 	render() {
 		return (
 			<div>
-				<br/>
+				<br />
 				<Modal
 					trigger={
-						<Button labelPosition="left" icon primary onClick={() => this.setState({ isOpen: true })}>
+						<Button
+							labelPosition="left"
+							icon
+							primary
+							onClick={() => this.setState({ isOpen: true })}
+						>
 							<Icon name="edit" />
 							Add reply
 						</Button>
@@ -88,7 +118,10 @@ class ModalComponent extends React.Component {
 					basic
 					size="small"
 				>
-					<Header icon={<Icon name="grav" inverted color="green"/>} content="Use your imagination" />
+					<Header
+						icon={<Icon name="grav" inverted color="green" />}
+						content="Use your imagination"
+					/>
 
 					{this.state.error ? (
 						<Message negative>
@@ -101,9 +134,7 @@ class ModalComponent extends React.Component {
 						undefined
 					)}
 					<Modal.Content>
-						<h3>
-							{this.props.topicContent}
-						</h3>
+						<h3>{this.props.topicContent}</h3>
 						<Form>
 							<Input
 								fluid
@@ -133,7 +164,7 @@ class ModalComponent extends React.Component {
 					</Modal.Actions>
 				</Modal>
 
-				<div className="answer">{this.renderSubmittedAnswer()}</div>
+				<Feed>{this.renderSubmittedAnswer()}</Feed>
 			</div>
 		);
 	}
