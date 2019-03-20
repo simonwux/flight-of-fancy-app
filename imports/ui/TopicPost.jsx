@@ -5,7 +5,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Topics } from "../api/topics.js";
 import { Answers } from "../api/answers";
 import ModalComponent from "./ModalComponent.jsx";
-import { Input, Message } from "semantic-ui-react";
+import { Input, Message, Comment, Icon, Feed } from "semantic-ui-react";
 import moment from "moment";
 import "./style/topics.css";
 
@@ -54,11 +54,34 @@ class TopicPost extends Component {
 
 	renderPostedTopics() {
 		return this.props.Topics.map((t, index) => (
-			<div key={t._id} className="card">
-				Author {t.author} : {t.topic} {moment(t.createdAt).fromNow()}
-				<br/>Total: {console.log(t)}
-				{this.props.answerCount[index]}
-				<ModalComponent topicID={t._id} topicContent={t.topic} />
+			<div key={t._id} className="topicsAndAnswers">
+				<Comment>
+					<Comment.Avatar src="/images/avatar/small/matt.jpg" />
+
+					<Comment.Content>
+						<Comment.Author as="a">{t.author}</Comment.Author>
+						<Comment.Metadata>
+							<div>{moment(t.createdAt).fromNow()}</div>
+						</Comment.Metadata>
+						<Comment.Text> {t.topic}</Comment.Text>
+						<Comment.Actions>
+							<Feed.Meta>
+								<Feed.Like>
+									<Icon name="comment outline" />{" "}
+									{this.props.answerCount[index]}
+									{this.props.answerCount[index] <= 1
+										? " reply"
+										: " replies"}{" "}
+								</Feed.Like>
+							</Feed.Meta>
+
+							<ModalComponent
+								topicID={t._id}
+								topicContent={t.topic}
+							/>
+						</Comment.Actions>
+					</Comment.Content>
+				</Comment>
 			</div>
 		));
 	}
@@ -92,7 +115,9 @@ class TopicPost extends Component {
 					onKeyPress={this.onKey.bind(this)}
 				/>
 
-				<div className="topic">{this.renderPostedTopics()}</div>
+				<Comment.Group size="large">
+					{this.renderPostedTopics()}
+				</Comment.Group>
 			</div>
 		);
 	}
