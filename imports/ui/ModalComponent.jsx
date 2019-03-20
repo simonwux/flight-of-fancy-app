@@ -138,7 +138,7 @@ class ModalComponent extends React.Component {
 						<Form>
 							<Input
 								fluid
-								icon="search"
+								icon="pencil alternate"
 								type="text"
 								placeholder="your answer"
 								value={this.state.answer}

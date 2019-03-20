@@ -106,7 +106,7 @@ class TopicPost extends Component {
 				<Input
 					fluid
 					size="big"
-					icon="add circle"
+					icon="bolt"
 					type="text"
 					placeholder="If you were a super hero..."
 					value={this.state.topic}
