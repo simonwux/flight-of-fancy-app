@@ -22,7 +22,8 @@ class ModalComponent extends React.Component {
 		this.state = {
 			isOpen: false,
 			answer: "",
-			error: ""
+			error: "",
+			visible: 3
 		};
 	}
 
@@ -30,6 +31,20 @@ class ModalComponent extends React.Component {
 		this.setState({
 			answer: event.target.value
 		});
+	}
+
+	// loadMore() {
+	// 	this.setState(prev => {
+	// 		return { visible: prev.visible + 4 };
+	// 	});
+	// }
+
+	loadMore() {
+		this.setState({ visible: this.state.visible + 4 });
+	}
+
+	closeMore() {
+		this.setState({ visible: 3 });
 	}
 
 	onClick() {
@@ -63,15 +78,15 @@ class ModalComponent extends React.Component {
 			a => a.parentId === this.props.topicID
 		);
 
-		return matchedAnswer.map(a => (
+		return matchedAnswer.slice(0, this.state.visible).map(a => (
 			<div key={a._id}>
 				<Feed>
 					<Feed.Event>
 						<Feed.Label image={a.authorProfile.avatar} />
 						<Feed.Content>
 							<Feed.Summary>
-								<Feed.User>{a.authorProfile.name}</Feed.User> replied a new
-								answer
+								<Feed.User>{a.authorProfile.name}</Feed.User>{" "}
+								replied a new answer
 								<Feed.Date>
 									{moment(a.createdAt).fromNow()}
 								</Feed.Date>
@@ -165,6 +180,8 @@ class ModalComponent extends React.Component {
 				</Modal>
 
 				<Feed>{this.renderSubmittedAnswer()}</Feed>
+				<Button onClick={this.loadMore.bind(this)}>More</Button>
+				<Button onClick={this.closeMore.bind(this)}>Close</Button>
 			</div>
 		);
 	}
