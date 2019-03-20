@@ -30,6 +30,7 @@ export default class Signup extends React.Component {
 		let username = e.target.username.value.trim();
 		let email = e.target.email.value.trim();
 		let pwd = e.target.password.value.trim();
+		let avatar = "https://api.adorable.io/avatars/285/" + username + ".png";
 
 		if (pwd.length < 8) {
 			return this.setState({
@@ -38,7 +39,7 @@ export default class Signup extends React.Component {
 		}
 
 		Accounts.createUser(
-			{ username: username, email: email, password: pwd },
+			{ username: username, email: email, password: pwd, profile: {avatar: avatar}},
 			err => {
 				if (err) {
 					this.setState({
@@ -74,7 +75,12 @@ export default class Signup extends React.Component {
 									<Image src="/logo.png" /> Sign up
 								</Header>
 								{this.state.error ? (
-									<Label basic color="red" pointing="below" size="large">
+									<Label
+										basic
+										color="red"
+										pointing="below"
+										size="large"
+									>
 										{this.state.error}
 									</Label>
 								) : (

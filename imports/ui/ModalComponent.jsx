@@ -67,10 +67,10 @@ class ModalComponent extends React.Component {
 			<div key={a._id}>
 				<Feed>
 					<Feed.Event>
-						<Feed.Label image="/images/avatar/small/joe.jpg" />
+						<Feed.Label image={a.authorProfile.avatar} />
 						<Feed.Content>
 							<Feed.Summary>
-								<Feed.User>{a.author}</Feed.User> replied a new
+								<Feed.User>{a.authorProfile.name}</Feed.User> replied a new
 								answer
 								<Feed.Date>
 									{moment(a.createdAt).fromNow()}

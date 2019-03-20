@@ -56,14 +56,13 @@ class TopicPost extends Component {
 		return this.props.Topics.map((t, index) => (
 			<div key={t._id} className="topicsAndAnswers">
 				<Comment>
-					<Comment.Avatar src="/images/avatar/small/matt.jpg" />
-
+					<Comment.Avatar src={t.authorProfile.avatar} />
 					<Comment.Content>
-						<Comment.Author as="a">{t.author}</Comment.Author>
+						<Comment.Author as="a">{t.authorProfile.name}</Comment.Author>
 						<Comment.Metadata>
 							<div>{moment(t.createdAt).fromNow()}</div>
 						</Comment.Metadata>
-						<Comment.Text> {t.topic}</Comment.Text>
+						<Comment.Text> <h2>{t.topic}</h2></Comment.Text>
 						<Comment.Actions>
 							<Feed.Meta>
 								<Feed.Like>
