@@ -1,3 +1,8 @@
-#allContent {
-	margin-top: 15px;
+#app {
+	background: rgb(218, 133, 207);
+	background: linear-gradient(
+		90deg,
+		rgba(218, 133, 207, 0.18951330532212884) 0%,
+		rgba(185, 241, 152, 0.2595413165266106) 100%
+	);
 }
