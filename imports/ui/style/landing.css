@@ -5,7 +5,10 @@
 }
 
 #signupHeader,
-#loginHeader,
+#loginHeader{
+	color: white;
+}
+
 #appIntro {
 	color: white;
 }

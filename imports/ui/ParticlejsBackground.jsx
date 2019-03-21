@@ -6,10 +6,10 @@ export default class ParticlejsBackground extends React.Component {
 	componentDidMount() {
 		Particle.init({
 			selector: ".background",
-			maxParticles: 120,
+			maxParticles: 300,
+			sizeVariations: 6,
 			color: ["#95afc0"],
-			speed: 0,
-			connectParticles: true
+			speed: 0.5
 		});
 	}
 	render() {

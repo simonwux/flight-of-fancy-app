@@ -3,10 +3,10 @@
 	display: block;
 	top: 0;
 	left: 0;
-	z-index: -1;
-	background-image: url(https://images.unsplash.com/photo-1443926818681-717d074a57af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+	z-index: -1;	
+	background-image: url(https://images.unsplash.com/photo-1525307967925-80bbf097f0b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+	background-position: 25% 1%;
 	background-repeat: no-repeat;
-	background-position: 50% 30%;
 	background-size: cover;
 }
 

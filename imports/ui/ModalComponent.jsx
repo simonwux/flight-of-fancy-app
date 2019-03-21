@@ -14,7 +14,6 @@ import {
 	Message,
 	Feed
 } from "semantic-ui-react";
-import "./style/answers.css";
 
 class ModalComponent extends React.Component {
 	constructor(props) {
