@@ -5,8 +5,7 @@
 - [Freddy Lyu](https://freddydoesit.github.io/freddy/)
 
 ## Screenshot
-### screen
-![screenshot](imgs/GifForP2.gif)
+![screenshot](public/screenshot.gif)
 
 ## Project Objective
 
