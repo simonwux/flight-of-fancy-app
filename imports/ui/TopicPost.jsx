@@ -5,10 +5,9 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Topics } from "../api/topics.js";
 import { Answers } from "../api/answers";
 import ModalComponent from "./ModalComponent.jsx";
-import { Input, Message, Comment, Icon, Feed } from "semantic-ui-react";
+import { Input, Message, Comment, Icon, Feed, Grid } from "semantic-ui-react";
 import moment from "moment";
 import "./style/topics.css";
-
 
 class TopicPost extends Component {
 	constructor(props) {
@@ -38,7 +37,6 @@ class TopicPost extends Component {
 							error: err.reason
 						});
 
-						console.log(err);
 						return;
 					}
 
@@ -92,36 +90,40 @@ class TopicPost extends Component {
 	}
 
 	render() {
-		console.log(this.props.Topics);
-
 		return (
-			<div>
-				{this.state.error ? (
-					<Message negative>
-						<Message.Header>
-							We are sorry we cannot submit your topic
-						</Message.Header>
-						<p>{this.state.error}</p>
-					</Message>
-				) : (
-					undefined
-				)}
+			<Grid textAlign="center" verticalAlign="middle" columns="equal">
+				<Grid.Row>
+					<Grid.Column width={10}>
+						{this.state.error ? (
+							<Message negative>
+								<Message.Header>
+									Oops... we cannot submit your topic.
+								</Message.Header>
+								<p>{this.state.error}</p>
+							</Message>
+						) : (
+							undefined
+						)}
 
-				<Input
-					fluid
-					size="big"
-					icon="bolt"
-					type="text"
-					placeholder="If you were a super hero..."
-					value={this.state.topic}
-					onChange={this.onChange.bind(this)}
-					onKeyPress={this.onKey.bind(this)}
-				/>
+						<Input
+							fluid
+							size="big"
+							icon="bolt"
+							type="text"
+							placeholder="If you were a super hero..."
+							value={this.state.topic}
+							onChange={this.onChange.bind(this)}
+							onKeyPress={this.onKey.bind(this)}
+						/>
+					</Grid.Column>
+				</Grid.Row>
 
-				<Comment.Group size="large">
-					{this.renderPostedTopics()}
-				</Comment.Group>
-			</div>
+				<Grid.Row>
+					<Comment.Group size="large">
+						{this.renderPostedTopics()}
+					</Comment.Group>
+				</Grid.Row>
+			</Grid>
 		);
 	}
 }
@@ -153,7 +155,6 @@ export default withTracker(() => {
 		const count = Answers.find({ parentId: topics[i]._id }).count();
 		answerCount.push(count);
 	}
-	console.log(answerCount);
 
 	return {
 		Topics: Topics.find(

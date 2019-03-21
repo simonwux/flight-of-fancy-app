@@ -1,18 +1,32 @@
 import React from "react";
-import "./style/landing.css";
+import { Icon, List } from "semantic-ui-react";
 
 export default class AboutTheApp extends React.Component {
 	render() {
 		return (
 			<div id="appIntro">
 				<p id="appTitle">Flight of Fancy</p>
-				<p id="appDesc">
-					Do you get bored of serious content? <br/>I know you are tired. <br/>I
-					understand you have your imagination at bay for a long time. <br/> <br/>
-					Come on, have some fun while wandering our App. <br/>Post your idea and
-					answer strange questions. <br/>It is all about out of box. <br/>Everything is not normal. Enjoy
-					this moment. <br/>Laugh out loud.
-				</p>
+				<List>
+					<List.Item>
+						<Icon name="bolt" size="big" />
+						Post your noval questions
+					</List.Item>
+					<br />
+					<List.Item>
+						<Icon name="comment alternate outline" size="big" />
+						{" "}Reply questions
+					</List.Item>
+					<br />
+					<List.Item>
+						<Icon name="fly" size="big" />
+						Wandering around the content
+					</List.Item>
+					<br />
+					<List.Item>
+						<Icon name="smile" size="big" />
+						Enjoy the moment. Laugh out loud
+					</List.Item>
+				</List>
 			</div>
 		);
 	}

@@ -32,6 +32,7 @@ const authStatus = isLoggedin => {
 	}
 };
 
+// routers
 export const renderRoutes = () => (
 	<Router history={browserHistory}>
 		<Switch>

@@ -38,16 +38,13 @@ class ModalComponent extends React.Component {
 			this.state.answer, // parameter
 			this.props.topicID,
 			// arrow function
-			(err, res) => {
+			err => {
 				if (err) {
 					this.setState({
 						isOpen: true,
 						error: err.reason
 					});
-					console.log(err);
 				} else {
-					console.log("Answer submitted", res);
-
 					this.setState({
 						answer: "",
 						error: "",
@@ -75,8 +72,27 @@ class ModalComponent extends React.Component {
 		if (matchedAnswer.length > 3) {
 			return (
 				<div>
-					<Button basic color="violet" onClick={this.loadMore.bind(this)}>view more replies</Button>
-					<Button basic color="violet" onClick={this.closeMore.bind(this)}>close</Button>
+					{this.state.visible < matchedAnswer.length ? (
+						<Button
+							basic
+							color="violet"
+							onClick={this.loadMore.bind(this)}
+						>
+							view more replies
+						</Button>
+					) : (
+						<Button basic color="violet">
+							no more replies
+						</Button>
+					)}
+
+					<Button
+						basic
+						color="violet"
+						onClick={this.closeMore.bind(this)}
+					>
+						close
+					</Button>
 				</div>
 			);
 		}
@@ -109,7 +125,7 @@ class ModalComponent extends React.Component {
 				{this.state.error ? (
 					<Message negative>
 						<Message.Header>
-							We are sorry we cannot submit your answer
+							Oops... we cannot submit your answer.
 						</Message.Header>
 						<p>{this.state.error}</p>
 					</Message>
