@@ -21,7 +21,7 @@ CS5610 Course Link: http://johnguerra.co/classes/webDevelopment_spring_2019/ Lov
 web, mobile, and desktop.
 - UI: [Semantic UI](https://semantic-ui.com/) - A development framework that helps create beautiful, responsive layouts using human-friendly HTML.
 - JavaScript library: particles.js, moment.js, simpl-schema.js
--API: [Adorable Avatars](http://avatars.adorable.io/)
+- API: [Adorable Avatars](http://avatars.adorable.io/)
 
 
 ## Video and Slides
