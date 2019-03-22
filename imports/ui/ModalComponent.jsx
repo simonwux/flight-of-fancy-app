@@ -35,7 +35,7 @@ class ModalComponent extends React.Component {
 	onClick() {
 		Meteor.call(
 			"Answers.insert", // method name
-			this.state.answer, // parameter
+			this.state.answer.trim(), // parameter
 			this.props.topicID,
 			// arrow function
 			err => {
