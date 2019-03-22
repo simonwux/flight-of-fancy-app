@@ -15,6 +15,20 @@ Flight-of-Fancy App is  an app where people can create some content that is out 
 
 CS5610 Course Link: http://johnguerra.co/classes/webDevelopment_spring_2019/ Love Professor John!
 
+## Usage
+
+First please make sure you have installed meteor, mongoDB, and React.
+
+Then run the following commands in your terminal.
+
+```
+git clone https://github.com/QiminCao/flight-of-fancy-app.git
+cd flight-of-fancy-app
+meteor npm install
+meteor
+```
+Open your browser and visit http://localhost:3000 and you should see the application.
+
 ## Technologies
 
 - Platform: [Meteor](https://www.meteor.com/) with React - An open source platform for 
