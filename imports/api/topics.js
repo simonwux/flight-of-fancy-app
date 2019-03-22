@@ -11,9 +11,6 @@ if (Meteor.isServer) {
 		return Topics.find(
 			{
 				
-			},
-			{
-				limit: 10
 			}
 		);
 	});
