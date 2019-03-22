@@ -1,4 +1,4 @@
-# [flight-of-fancy-app](https://desolate-headland-41222.herokuapp.com/)
+# [flight-of-fancy-app](https://flight-of-fantasy.herokuapp.com/)
 
 ## Author
 - [Karen Cao](https://qimincao.github.io/HomePage_Karen/)
@@ -25,7 +25,7 @@ web, mobile, and desktop.
 
 
 ## Video and Slides
-Video demo of this project can be found [here](https://youtu.be/lGcDKlrpaZg). 
+Video demo of this project can be found [here](https://youtu.be/_bwwdzjsUgg). 
 
 Slide of this project can be found [here](https://docs.google.com/presentation/d/1WmwlLXZRelC0Dg87GY_z6nNH6uMqHMSZK_bxEEwXbR8/edit#slide=id.g54f4327236_0_546).
 
