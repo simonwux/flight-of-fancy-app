@@ -5,12 +5,13 @@
 - [Freddy Lyu](https://freddydoesit.github.io/freddy/)
 
 ## Screenshot
-### screen
-![screenshot](imgs/GifForP2.gif)
+![screenshot](public/screenshot.gif)
 
 ## Project Objective
 
 People would love to have some happy moments and be amused by some “useless and unrealistic” ideas. We want to build an app with pages not that serious and not that “useful”. 
+
+Flight-of-Fancy App is  an app where people can create some content that is out of box. Something that may be improper to speak it out during normal situations. LoL!
 
 CS5610 Course Link: http://johnguerra.co/classes/webDevelopment_spring_2019/ Love Professor John!
 
@@ -20,12 +21,13 @@ CS5610 Course Link: http://johnguerra.co/classes/webDevelopment_spring_2019/ Lov
 web, mobile, and desktop.
 - UI: [Semantic UI](https://semantic-ui.com/) - A development framework that helps create beautiful, responsive layouts using human-friendly HTML.
 - JavaScript library: particles.js, moment.js, simpl-schema.js
+- API: [Adorable Avatars](http://avatars.adorable.io/)
 
 
 ## Video and Slides
 Video demo of this project can be found [here](https://youtu.be/lGcDKlrpaZg). 
 
-Slide of this project can be found [here](https://docs.google.com/presentation/d/17vlSNo488lnpI5C4PXtUk3kNIzWxC-7fUv9CdBBeZhg/edit#slide=id.p).
+Slide of this project can be found [here](https://docs.google.com/presentation/d/1WmwlLXZRelC0Dg87GY_z6nNH6uMqHMSZK_bxEEwXbR8/edit#slide=id.g54f4327236_0_546).
 
 
 ## License
