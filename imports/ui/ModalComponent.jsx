@@ -194,7 +194,9 @@ class ModalComponent extends React.Component {
 									}
 								>
 									<Icon name="like" />
-									{a.likes} Likes
+
+									{a.likes}
+									{a.likes > 1 ? " Likes" : " Like"}
 								</Feed.Like>
 							</Feed.Meta>
 						</Feed.Content>
