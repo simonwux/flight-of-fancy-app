@@ -4,7 +4,7 @@ import { Image, Button } from "semantic-ui-react";
 
 export default class NotFound extends React.Component {
 	render() {
-		return (
+		return (//It's nice that you pay attention to even the not found page.
 			<div align="center">
 				<Image centered size="large" src="/oops.png" />
 				<br />
