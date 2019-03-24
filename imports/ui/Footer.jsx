@@ -6,7 +6,7 @@ export default class Footer extends React.Component {
 		return (
 			<div id="footer">
 				<p>
-					© 2019, made with passion and ♥️ by{" "}
+					© 2019, made with passion and ♥️ by{" "}//it's nice that you put your homepage in the footer.
 					<a
 						href="https://freddydoesit.github.io/freddy/"
 						target="blank"
