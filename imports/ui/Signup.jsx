@@ -14,7 +14,7 @@ import {
 	Segment,
 	Label
 } from "semantic-ui-react";
-import "./style/landing.css";
+import "./style/landing.css"; // like the template you use
 
 
 export default class Signup extends React.Component {
@@ -35,13 +35,13 @@ export default class Signup extends React.Component {
 
 		if (pwd.length < 8) {
 			return this.setState({
-				error: "Password must be more than 8 characters."
+				error: "Password must be more than 8 characters."// This one is careful
 			});
 		}
 
 		Accounts.createUser(
 			{ username: username, email: email, password: pwd, profile: {avatar: avatar}},
-			err => {
+			err => { //I like that you guys remaster the login signup page instead of using John's template
 				if (err) {
 					this.setState({
 						error: err.reason
