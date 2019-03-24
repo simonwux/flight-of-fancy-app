@@ -5,7 +5,7 @@ import { Image, Icon } from "semantic-ui-react";
 export default class Description extends React.Component {
 	render() {
 		return (
-			<div id="description">
+			<div id="description">// I like the landing page, seems nice.
 				<Image src="/title.png" fluid /><br/>
 				<p id="appDesc">
 					Do you get bored of serious content? <br />I know you are
