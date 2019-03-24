@@ -4,7 +4,7 @@
 - [Karen Cao](https://qimincao.github.io/HomePage_Karen/)
 - [Freddy Lyu](https://freddydoesit.github.io/freddy/)
 
-## Screenshot
+## Screenshot //I like this gif screenshot, maybe I should make one too.
 ![screenshot](public/screenshot.gif)
 
 ## Project Objective
