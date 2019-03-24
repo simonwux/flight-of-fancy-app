@@ -18,7 +18,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	"Topics.insert"(topic) {
-
+		//check the type of topic
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
