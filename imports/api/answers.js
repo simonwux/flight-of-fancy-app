@@ -15,7 +15,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-	"Answers.insert"(ans, postId) {
+	"Answers.insert"(ans, postId) {//check postId too
 		check(ans, String);
 
 		if (!this.userId) {
